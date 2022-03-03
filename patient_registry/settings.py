@@ -122,7 +122,9 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
+
+CACHE_TIME_OUT=57600
 
 
 # Static files (CSS, JavaScript, Images)

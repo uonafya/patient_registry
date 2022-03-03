@@ -12,8 +12,9 @@ def mysql_connection():
                      db="kenyaemr")  # db name
     try:
         connection = kenya_emr_db.cursor()
-        fetch_kenyaemr_patients(connection)
-        # print("------------>>>>>> ",connection)
+        kenya_emr_data = fetch_kenyaemr_patients(connection)
+        
+        return kenya_emr_data
 
 
     except mysql.connector.Error as err:
@@ -37,12 +38,6 @@ def fetch_kenyaemr_patients(connection):
             if(prop=="lastupdate"):
                 lastupdate=datetime.strptime(data.split("=")[1], '%Y-%m-%d %H:%M:%S')
 
-            # max_lastupdate_timestamp_sql='''Select max(date_created) FROM person'''
-    
-            # print("==============>>> ", max_lastupdate_timestamp_sql)
-            # # connection.execute(max_lastupdate_timestamp_sql)
-            # for row in connection.fetchone():
-            #     max_lastupdate_timestamp=row
             get_query = ''' SELECT prsn.gender, prsn.birthdate, prsn.date_changed, pname.given_name 
                                     as gname,pname.middle_name mname,pname.family_name as fname,
                                                     pt.date_created,pt.voided,pt.patient_id
@@ -50,10 +45,12 @@ def fetch_kenyaemr_patients(connection):
                                                     inner join patient pt on pt.patient_id=prsn.person_id '''
             connection.execute(get_query)
             data = connection.fetchall()
-            for x in data:
-                pass
-                # print("------------>>>> ",x)
-            update_db(connection, data)
+            
+            return data
+            # for x in data:
+            #     pass
+            #     # print("------------>>>> ",x)
+            # update_db(connection, data)
         except Exception as e:
             print(e)
     
@@ -63,9 +60,11 @@ def  update_db(connection, data):
     function to update data to client registry from emr
     '''
     try:
+        import pdb
+        # pdb.set_trace()
         for row in data: 
-            # print(row)   
-            Patient.objects.create(gender=row[0],dob=row[1],date_updated=row[2],first_name=row[3],second_name=row[4],surname=row[5],date_created=row[6], voided=row[7],patient_id=row[8]) 
+            p = Patient.objects.create(gender=row[0],dob=row[1],date_updated=row[2],first_name=row[3],second_name=row[4],surname=row[5],date_created=row[6], voided=row[7],patient_id=row[8]) 
+            p.save()
         # Patient.objects.bulk_create(data, ['gender', 'birthdate', 'is_superuser', 'first_name', 'last_name', 'username', 'email', 'date_updated', 'is_staff', 'patient_id']) 
     except Exception as e:
 
