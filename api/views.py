@@ -25,7 +25,11 @@ def all_patients(request):
     cache.set("all_patients",patients, timeout=settings.CACHE_TIME_OUT)
     serializer = PatientSerializer(patients, many=True)
 
-    return Response(serializer.data)
+    return_message = {
+            "message": ('All patients fetched Successfully'),
+            "data": serializer.data
+        }
+    return Response(return_message, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def fetch_facilities(request):
@@ -37,7 +41,11 @@ def facilities(request):
     cache.set("facilities",facilities, timeout=settings.CACHE_TIME_OUT)
     serializer = FacilitySerializer(facilities, many=True)
 
-    return Response(serializer.data)
+    return_message = {
+            "message": ('All facilities fetched Successfully'),
+            "data": serializer.data
+        }
+    return Response(return_message, status=status.HTTP_200_OK)
     
 
 
