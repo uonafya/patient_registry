@@ -1,7 +1,4 @@
 from django.shortcuts import render
-
-from django.shortcuts import render
-
 from django.core.cache import cache
 
 from rest_framework import status
