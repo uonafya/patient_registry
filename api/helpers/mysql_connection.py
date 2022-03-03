@@ -38,11 +38,11 @@ def fetch_kenyaemr_patients(connection):
             if(prop=="lastupdate"):
                 lastupdate=datetime.strptime(data.split("=")[1], '%Y-%m-%d %H:%M:%S')
 
-            get_query = ''' SELECT prsn.gender, prsn.birthdate, prsn.date_changed, pname.given_name 
-                                    as gname,pname.middle_name mname,pname.family_name as fname,
-                                                    pt.date_created,pt.voided,pt.patient_id
+            get_query = ''' SELECT prsn.gender, prsn.birthdate, prsn.date_changed, pname.given_name as gname,pname.middle_name mname,pname.family_name as fname,
+                                                    pt.date_created,pt.voided,pt.patient_id, paddress.country, paddress.city_village, ccc.identifier
                                                     FROM person prsn inner join person_name pname on pname.person_id=prsn.person_id
-                                                    inner join patient pt on pt.patient_id=prsn.person_id '''
+                                                    inner join patient pt on pt.patient_id=prsn.person_id inner join person_address paddress on paddress.person_id=prsn.person_id 
+                                                    inner join patient_identifier ccc on ccc.patient_id=prsn.person_id '''
             connection.execute(get_query)
             data = connection.fetchall()
             

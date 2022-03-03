@@ -10,3 +10,6 @@ class Patient(models.Model):
     date_updated = models.DateTimeField(null=True)
     date_created = models.DateTimeField(null=True)
     voided=models.CharField(max_length=254, null=True)
+    county = models.CharField(max_length=254, null=True)
+    village = models.CharField(max_length=254, null=True)
+    ccc_number = models.CharField(max_length=254, null=True)
