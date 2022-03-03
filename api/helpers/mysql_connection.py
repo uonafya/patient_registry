@@ -2,6 +2,7 @@
 import mysql.connector
 from mysql.connector import errorcode
 from datetime import datetime
+from ..models import Patient
 
 
 def mysql_connection():
@@ -24,15 +25,15 @@ def mysql_connection():
             print(err)
 
 def fetch_kenyaemr_patients(connection):
+    '''
+    function to fetch data from emr
+    '''
     lastupdate=None
-    print("----------------->>>>>>>>>>> ")
 
     with open('/home/moha/healthIT/patient_registry/synch.properties', 'r') as file:
         data = file.read().replace('\n', '')
         try:
-            print("----------------->>>>>>>>>>> ")
             prop=data.split("=")[0]
-            print("888888888888888888",prop)
             if(prop=="lastupdate"):
                 lastupdate=datetime.strptime(data.split("=")[1], '%Y-%m-%d %H:%M:%S')
 
@@ -44,21 +45,29 @@ def fetch_kenyaemr_patients(connection):
             #     max_lastupdate_timestamp=row
             get_query = ''' SELECT prsn.gender, prsn.birthdate, prsn.date_changed, pname.given_name 
                                     as gname,pname.middle_name mname,pname.family_name as fname,
-                                                    pt.date_changed,pt.date_created,pt.voided,pt.patient_id
+                                                    pt.date_created,pt.voided,pt.patient_id
                                                     FROM person prsn inner join person_name pname on pname.person_id=prsn.person_id
                                                     inner join patient pt on pt.patient_id=prsn.person_id '''
             connection.execute(get_query)
             data = connection.fetchall()
             for x in data:
-                print("------------>>>> ",x)
-            update_db()
-
-            # print("==============>>>>>>> ",data)
-
-
+                pass
+                # print("------------>>>> ",x)
+            update_db(connection, data)
         except Exception as e:
-            print("+++++++++++++++ ",e)
+            print(e)
     
 
-def  update_db():
+def  update_db(connection, data):
+    '''
+    function to update data to client registry from emr
+    '''
+    try:
+        for row in data: 
+            # print(row)   
+            Patient.objects.create(gender=row[0],dob=row[1],date_updated=row[2],first_name=row[3],second_name=row[4],surname=row[5],date_created=row[6], voided=row[7],patient_id=row[8]) 
+        # Patient.objects.bulk_create(data, ['gender', 'birthdate', 'is_superuser', 'first_name', 'last_name', 'username', 'email', 'date_updated', 'is_staff', 'patient_id']) 
+    except Exception as e:
+
+        print(e)
     pass
