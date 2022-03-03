@@ -1,7 +1,8 @@
-from .mysql_connection import mysql_connection
+from .mysql_connection import mysql_connection, store_facilities
 from ..models import Patient
 import requests
 import json
+from django.core.cache import cache
 
 
 
@@ -10,19 +11,21 @@ def fetch_data():
     return data
 
 def fetch_kmhfl_facilities():
-    kmhfl_token = fetch_kmhfl_token()
-    print("===========>>> Tokenssssssss", kmhfl_token)
-    facilities_details = get_facilities(kmhfl_token)
+    kmhfl_token =''
+    facilities_details = []
+    if "kmhfl_token" not in cache:
+        kmhfl_token = fetch_kmhfl_token()
+        cache.set("kmhfl_token",kmhfl_token)
+    else:
+        kmhfl_token = cache.get("kmhfl_token",kmhfl_token)
+        if "facilities_details" not in cache:
+            facilities_details = get_facilities(kmhfl_token)
+            cache.set("facilities_details",facilities_details)
+        else:
+            facilities_details = cache.get("facilities_details",facilities_details)
 
     store_facilities(facilities_details)
 
-def store_facilities(facilities_details):
-    for facility in facilities_details:
-        county = facility.get("county")
-        sub_county = facility.get("sub_county_name")
-        ward = facility.get("ward_name")
-        facility_name = facility.get("ward_name")
-        mfl_code =
 
 def get_facilities(kmhfl_token):
     url = "http://api.kmhfltest.health.go.ke/api/facilities/facilities/?format=json"
@@ -56,8 +59,6 @@ def fetch_kmhfl_token():
     kmhf_access_token =response_payload.get("access_token")
 
     return kmhf_access_token
-
-
 
 def create_records(data):
     try:

@@ -13,3 +13,12 @@ class Patient(models.Model):
     county = models.CharField(max_length=254, null=True)
     village = models.CharField(max_length=254, null=True)
     ccc_number = models.CharField(max_length=254, null=True)
+
+class Facility(models.Model):
+    name = models.CharField(max_length=254, null=True)
+    mfl_code = models.CharField(max_length=128, null=True)
+    facility_type = models.CharField(max_length=150, null=True)
+    county = models.CharField(max_length=150, null=True)
+    sub_county = models.CharField(max_length=150, null=True)
+    ward = models.CharField(max_length=150, null=True)
+    

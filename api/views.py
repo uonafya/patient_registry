@@ -7,8 +7,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.conf import settings
 from .helpers.fetch_data import fetch_data, create_records,fetch_kmhfl_facilities
-from .serializers import PatientSerializer
-from .models import Patient
+from .serializers import PatientSerializer, FacilitySerializer
+from .models import Patient, Facility
 
 
 @api_view(['GET'])
@@ -30,4 +30,14 @@ def all_patients(request):
 @api_view(['GET'])
 def fetch_facilities(request):
     fetch_kmhfl_facilities()
+
+@api_view(['GET'])
+def facilities(request):
+    facilities = Facility.objects.all()
+    cache.set("facilities",facilities, timeout=settings.CACHE_TIME_OUT)
+    serializer = FacilitySerializer(facilities, many=True)
+
+    return Response(serializer.data)
+    
+
 
