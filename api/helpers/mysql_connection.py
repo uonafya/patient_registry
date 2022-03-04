@@ -68,6 +68,11 @@ def  update_db(connection, data):
 
 
 def store_facilities(facilities_details):
+    import pdb
+    pdb.set_trace()
+    '''
+    function to store facilities from kmhfl
+    '''
     for facility in facilities_details:
         name = facility.get("official_name")
         mfl_code = facility.get("code")

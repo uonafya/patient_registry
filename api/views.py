@@ -51,6 +51,7 @@ def share_facilities(request):
         }
     return Response(return_message, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
 def clear_cache(request):
     if request.method == 'GET':
        cache.clear()
