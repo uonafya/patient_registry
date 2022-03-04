@@ -37,3 +37,14 @@ def new_client(request):
                             sub_county=sub_county, ward=ward, national_id=national_id,ccc_number=ccc_number, date_created=date_created, village=village)
             patient.save()
         return render(request, "new_client.html", {'form': form})
+
+
+def list_clients(request):
+    patients = Patient.objects.all()
+    import pdb
+    # pdb.set_trace()
+    if request.method == 'GET':
+        context = {
+            'patients': patients,
+        }
+        return render(request, 'all_patients.html', context)
