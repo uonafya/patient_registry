@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path('test',views.fetch_kenyaemr, name='test'),
     path('all/patients',views.all_patients, name='patients'),
-    path('auth/kmhfl',views.fetch_facilities, name='kmfl_auth'),
-    path('all/facilities',views.facilities, name='kmfl'),
+    path('fetch/kmhfl/facilities',views.fetch_mfl_facilities, name='get_facilities'),
+    path('all/facilities',views.share_facilities, name='kmfl'),
 
 ]

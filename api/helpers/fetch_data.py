@@ -60,7 +60,7 @@ def fetch_kmhfl_token():
 
     return kmhf_access_token
 
-def create_records(data):
+def batch_insert_patients(data):
     try:
         import pdb
         

@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from rest_framework.decorators import api_view
 from django.conf import settings
-from .helpers.fetch_data import fetch_data, create_records,fetch_kmhfl_facilities
+from .helpers.fetch_data import fetch_data, batch_insert_patients,fetch_kmhfl_facilities
 from .serializers import PatientSerializer, FacilitySerializer
 from .models import Patient, Facility
 
@@ -16,7 +16,7 @@ def fetch_kenyaemr(request):
     import pdb
 
     kenya_emr_data = fetch_data()
-    create_records(kenya_emr_data)
+    batch_insert_patients(kenya_emr_data)
     pdb.set_trace()
 
 @api_view(['GET'])
@@ -32,11 +32,11 @@ def all_patients(request):
     return Response(return_message, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-def fetch_facilities(request):
+def fetch_mfl_facilities(request):
     fetch_kmhfl_facilities()
 
 @api_view(['GET'])
-def facilities(request):
+def share_facilities(request):
     facilities = Facility.objects.all()
     cache.set("facilities",facilities, timeout=settings.CACHE_TIME_OUT)
     serializer = FacilitySerializer(facilities, many=True)

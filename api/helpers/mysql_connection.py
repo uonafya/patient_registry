@@ -47,10 +47,6 @@ def fetch_kenyaemr_patients(connection):
             data = connection.fetchall()
             
             return data
-            # for x in data:
-            #     pass
-            #     # print("------------>>>> ",x)
-            # update_db(connection, data)
         except Exception as e:
             print(e)
     
