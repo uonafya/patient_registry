@@ -1,4 +1,5 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 class Patient(models.Model):
     patient_id = models.CharField(max_length=254, null=True)
@@ -13,6 +14,8 @@ class Patient(models.Model):
     county = models.CharField(max_length=254, null=True)
     village = models.CharField(max_length=254, null=True)
     ccc_number = models.CharField(max_length=254, null=True)
+    phone_number = PhoneNumberField(null=True, blank=True, unique=False)
+    National_id = models.CharField(max_length=254, null=True)
 
 class Facility(models.Model):
     name = models.CharField(max_length=254, null=True)

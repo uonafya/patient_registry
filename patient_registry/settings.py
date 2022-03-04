@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'client_registry.apps.ClientRegistryConfig',
     'rest_framework',
-    'rest_framework_swagger'
+    'rest_framework_swagger',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [

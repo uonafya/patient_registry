@@ -34,23 +34,14 @@ def get_facilities(kmhfl_token):
     import pdb
     global page_count
     global total_pages
-    print("------------------------>>>>>>>>> ", page_count)
-    print("######################### ", total_pages)
-    # pdb.set_trace()
+
     if total_pages >= page_count:
-        
-    # fetch_facilities(page_count, kmhfl_token) is not 0:
         facilities_details = fetch_facilities(page_count, kmhfl_token)
         total_pages = facilities_details.get("total_pages")
 
         page_count=page_count+1
-        print("------------------------>>>>>>>>> 2", page_count)
         store_facilities(facilities_details.get("facilities_details"))
         get_facilities(kmhfl_token)
-
-        # return page_count
-        
-
     else:
         print(" yyyyyyyyyyyyyyyyyyy ")
  
@@ -118,12 +109,9 @@ def batch_insert_patients(data):
     pass
 
 def store_facilities(facilities_details):
-    import pdb
-    # pdb.set_trace()
     '''
     function to store facilities from kmhfl
     '''
-    print("tttttttttttttttttttt ", facilities_details)
     for facility in facilities_details:
         name = facility.get("official_name")
         mfl_code = facility.get("code")

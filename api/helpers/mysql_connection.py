@@ -57,7 +57,6 @@ def  update_db(connection, data):
     '''
     try:
         import pdb
-        # pdb.set_trace()
         for row in data: 
             p = Patient.objects.create(gender=row[0],dob=row[1],date_updated=row[2],first_name=row[3],second_name=row[4],surname=row[5],date_created=row[6], voided=row[7],patient_id=row[8]) 
             p.save()
@@ -65,21 +64,3 @@ def  update_db(connection, data):
 
         print(e)
     pass
-
-
-def store_facilities(facilities_details):
-    import pdb
-    pdb.set_trace()
-    '''
-    function to store facilities from kmhfl
-    '''
-    for facility in facilities_details:
-        name = facility.get("official_name")
-        mfl_code = facility.get("code")
-        county = facility.get("county")
-        sub_county = facility.get("sub_county_name")
-        ward = facility.get("ward_name")
-        facility_type = facility.get("facility_type_name")
-
-        facility = Facility.objects.create(name=name,mfl_code=mfl_code,county=county,sub_county=sub_county,ward=ward,facility_type=facility_type)
-        facility.save()
