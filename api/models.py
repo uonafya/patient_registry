@@ -12,10 +12,12 @@ class Patient(models.Model):
     date_created = models.DateTimeField(null=True)
     voided=models.CharField(max_length=254, null=True)
     county = models.CharField(max_length=254, null=True)
+    sub_county = models.CharField(max_length=254, null=True)
+    ward = models.CharField(max_length=254, null=True)
     village = models.CharField(max_length=254, null=True)
     ccc_number = models.CharField(max_length=254, null=True)
     phone_number = PhoneNumberField(null=True, blank=True, unique=False)
-    National_id = models.CharField(max_length=254, null=True)
+    national_id = models.CharField(max_length=254, null=True)
 
 class Facility(models.Model):
     name = models.CharField(max_length=254, null=True)
