@@ -36,7 +36,7 @@ def fetch_mfl_facilities(request):
     fetch_kmhfl_facilities()
 
     return_message = {
-            "message": (''),
+            "message": ('Facilities Updated Successfully'),
         }
     return Response(return_message, status=status.HTTP_200_OK)
 @api_view(['GET'])

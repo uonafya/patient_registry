@@ -4,7 +4,8 @@ import requests
 import json
 from django.core.cache import cache
 
-
+page_count=1
+total_pages = 1
 
 def fetch_data():
     data = mysql_connection()
@@ -31,15 +32,23 @@ def fetch_kmhfl_facilities():
 
 def get_facilities(kmhfl_token):
     import pdb
-    page_count=1
-    total_pages = 1
-    
-    if total_pages <= page_count:
+    global page_count
+    global total_pages
+    print("------------------------>>>>>>>>> ", page_count)
+    print("######################### ", total_pages)
+    # pdb.set_trace()
+    if total_pages >= page_count:
+        
+    # fetch_facilities(page_count, kmhfl_token) is not 0:
         facilities_details = fetch_facilities(page_count, kmhfl_token)
         total_pages = facilities_details.get("total_pages")
+
         page_count=page_count+1
-        print("pppppppppppppppppppppppppppp")
+        print("------------------------>>>>>>>>> 2", page_count)
         store_facilities(facilities_details.get("facilities_details"))
+        get_facilities(kmhfl_token)
+
+        # return page_count
         
 
     else:
@@ -51,7 +60,7 @@ def get_facilities(kmhfl_token):
 
 def fetch_facilities(page_count, kmhfl_token):
     import pdb
-    url = f"http://api.kmhfltest.health.go.ke/api/facilities/facilities/?format=json&page=500"
+    url = f"http://api.kmhfltest.health.go.ke/api/facilities/facilities/?format=json&page={page_count}"
 
     payload={}
     headers = {
@@ -60,20 +69,22 @@ def fetch_facilities(page_count, kmhfl_token):
     }
 
     response = requests.request("GET", url, headers=headers, data=payload)
-    pdb.set_trace()
-    response_payload = json.loads(response.content)
-    # pdb.set_trace()
-    facilities_details = response_payload.get("results")
-    total_pages = response_payload.get("total_pages")
+    if response.status_code==200:
+        response_payload = json.loads(response.content)
+        facilities_details = response_payload.get("results")
+        total_pages = response_payload.get("total_pages")
 
+        
+        all_facilities_details = {
+            "facilities_details" : facilities_details,
+            "total_pages" : total_pages
+
+        }
+        return all_facilities_details
     
-    all_facilities_details = {
-        "facilities_details" : facilities_details,
-        "total_pages" : total_pages
+    else:
+        return 0
 
-    }
-    print("###################### ")
-    return all_facilities_details
 
 def fetch_kmhfl_token():
     url = "http://api.kmhfltest.health.go.ke/o/token/"
