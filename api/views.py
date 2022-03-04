@@ -35,6 +35,10 @@ def all_patients(request):
 def fetch_mfl_facilities(request):
     fetch_kmhfl_facilities()
 
+    return_message = {
+            "message": (''),
+        }
+    return Response(return_message, status=status.HTTP_200_OK)
 @api_view(['GET'])
 def share_facilities(request):
     facilities = Facility.objects.all()
@@ -46,6 +50,11 @@ def share_facilities(request):
             "data": serializer.data
         }
     return Response(return_message, status=status.HTTP_200_OK)
-    
 
-
+def clear_cache(request):
+    if request.method == 'GET':
+       cache.clear()
+       return_message = {
+            "message": ('All Caches cleared Successfully')
+        }
+       return Response(return_message, status=status.HTTP_200_OK)

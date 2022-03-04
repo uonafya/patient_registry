@@ -13,9 +13,13 @@ def fetch_data():
 def fetch_kmhfl_facilities():
     kmhfl_token =''
     facilities_details = []
+    import pdb
+    
     if "kmhfl_token" not in cache:
         kmhfl_token = fetch_kmhfl_token()
+        # pdb.set_trace()
         cache.set("kmhfl_token",kmhfl_token)
+        facilities_details = get_facilities(kmhfl_token)
     else:
         kmhfl_token = cache.get("kmhfl_token",kmhfl_token)
         if "facilities_details" not in cache:
