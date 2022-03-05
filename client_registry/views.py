@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import ClientForm
+from .forms import ClientForm, SearchForm
 from api.models import Patient
 from datetime import datetime, date
 from .documents import PatientDocument
@@ -50,20 +50,21 @@ def list_clients(request):
         return render(request, 'all_patients.html', context)
 
 def main_search(request):
-    if request.method == 'GET':
-        patients = PatientDocument.search().query("match", first_name="Wenger")
-        patients_deatils = patients.to_queryset()
-        context : {
-            'patients':patients_deatils,
-        }
 
-        return render(request, 'search.html', context)
+    if request.method == 'GET':
+        form = SearchForm()
+
+        return render(request, 'search.html',{'form': form})
     else:
-        first_name=request.get.POST("first_name")
-        second_name=request.get.POST("second_name")
-        patients = PatientDocument.search().query("match", first_name="Wenger")
+        import pdb
+        
+        keyword=request.POST.get("keyword")
+        # second_name=request.POST.get("first_name")
+        patients = PatientDocument.search().query("match", first_name=keyword)
         patients_deatils = patients.to_queryset()
-        context : {
+        # pdb.set_trace()
+
+        context = {
             'patients':patients_deatils,
         }
 

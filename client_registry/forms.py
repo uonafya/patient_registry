@@ -52,3 +52,41 @@ class ClientForm(forms.Form):
         attrs={'class':'form-control',
                'placeholder': 'Enter Village', 'id':'phone_number'}
     ))
+
+class SearchForm(forms.Form):
+    keyword = forms.CharField(required=False, max_length=100, widget=forms.TextInput(
+        attrs={'class':'form-control',
+               'placeholder': 'Type Keyword to search', 'id':'keyword'}
+    ))
+    county = forms.CharField(required=False, max_length=100, widget=forms.TextInput(
+        attrs={'class':'form-control',
+               'placeholder': 'Select County', 'id':'county'}
+    ))
+    sub_county = forms.CharField(required=False, max_length=100, widget=forms.TextInput(
+        attrs={'class':'form-control',
+               'placeholder': 'Select Sub County', 'id':'sub_county'}
+    ))
+    ward = forms.CharField(required=False, max_length=100, widget=forms.TextInput(
+        attrs={'class':'form-control',
+               'placeholder': 'Selects Ward', 'id':'ward'}
+    ))
+    phone_number = forms.CharField(required=False, max_length=12, widget=forms.TextInput(
+        attrs={'class':'form-control',
+               'placeholder': 'Enter Village', 'id':'phone_number'}
+    ))
+    first_name = forms.CharField(required=False, max_length=100,widget=forms.TextInput(
+        attrs={'class':'form-control',
+               'placeholder': 'First Name', 'id':'first_name'}
+    ))
+    second_name = forms.CharField(required=False,max_length=100, widget=forms.TextInput(
+        attrs={'class':'form-control',
+               'placeholder': 'Enter Second Name', 'id':'second_name'}
+    ))
+    surname = forms.CharField(required=False , max_length=100, widget=forms.TextInput(
+        attrs={'class':'form-control',
+               'placeholder': 'Enter surname', 'id':'surname'}
+    ))
+    national_id = forms.CharField(required=False , max_length=100, widget=forms.TextInput(
+        attrs={'class':'form-control',
+               'placeholder': 'Enter National ID', 'id':'national_id'}
+    ))

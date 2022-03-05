@@ -14,11 +14,17 @@
 
 <body>
     <div class="s009">
-        <form>
+        <form action="{% url 'main_search' %}" method="POST">
+            {% csrf_token %}
             <div class="inner-form">
                 <div class="basic-search">
                     <div class="input-field">
-                        <input id="search" type="text" placeholder="Type Keywords" />
+                        <div class="form-group">
+                            <!-- <label for="basicInput">First Name</label> -->
+                            {{ form.keyword }}
+                            <!-- <input type="text" class="form-control" id="first_name" placeholder="Enter First Name"> -->
+                        </div>
+                        <!-- <input id="first_name" type="text" placeholder="Type Keywords" /> -->
                         <div class="icon-wrap">
                             <svg class="svg-inline--fa fa-search fa-w-16" fill="#ccc" aria-hidden="true"
                                 data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -35,20 +41,20 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="helpInputTop">Facility</label>
-                                <input type="text" class="form-control" id="second_name"
+                                <label for="helpInputTop"></label>
+                                <input type="text" class="form-control" id="facility"
                                     placeholder="Enter Middle Name">
                             </div>
                             <div class="form-group">
-                                <label for="helpInputTop">County</label>
-                                <!-- {{ form.second_name }} -->
+                                <label for="helpInputTop">Name</label>
+                                {{ form.first_name }}
                                 <input type="text" class="form-control" id="second_name" placeholder="Select County">
                             </div>
                             <div class="form-group">
-                                <label for="helpInputTop">Sub County</label>
-                                <!-- {{ form.second_name }} -->
-                                <input type="text" class="form-control" id="second_name"
-                                    placeholder="Select Sub-Countys">
+                                <!-- <label for="helpInputTop">Phone Number</label> -->
+                                {{ form.phone_number }}
+                                <!-- <input type="text" class="form-control" id="second_name"
+                                    placeholder="Select Sub-Countys"> -->
                             </div>
 
                         </div>
@@ -72,10 +78,76 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row third">
+                        <div class="input-field">
+                          <div class="result-count">
+                            <span>108 </span>results</div>
+                          <div class="group-btn">
+                            <button class="btn-delete" id="delete">RESET</button>
+                            <button class="btn-search">SEARCH</button>
+                          </div>
+                        </div>
+                      </div>
 
                 </div>
+                
             </div>
+
         </form>
+    </div>
+    {% if patients %}
+    <div class="page-heading">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                    <h3>List Of All Clients in XYZ Facility</h3>
+                    <p class="text-subtitle text-muted">MFL Code: 454156</p>
+                </div>
+            </div>
+        </div>
+        <section class="section">
+    <div class="table-responsive">
+        <table class="table table-light mb-0">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Middle Name</th>
+                    <th>Surname</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                    <th>County</th>
+                    <th>Sub County</th>
+                    <th>Ward</th>
+                    <th>Facility Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                <tr>
+                   
+                    <td class="text-bold-500">{{patient.first_name}}</td>
+                    <td class="text-bold-500">{{patient.second_name}}</td>
+                    <td>{{patient.surname}}</td>
+                    <td>{{patient.gender}}</td>
+                    <td class="text-bold-500">{{patient.age}}</td>
+                    <td class="text-bold-500">{{patient.county}}</td>
+                    <td>{{patient.sub_county}}</td>
+                    <td class="text-bold-500">{{patient.ward}}</td>
+                    <td>Facility Name</td>
+                    <!-- <td><a href="#"><i class="badge-circle badge-circle-white text-secondary font-medium-1" data-feather="mail"></i></a></td> -->
+                    <td><a href="#!">Update</a></td>
+                    <td><a href="#!">View</a></td>
+                   
+                </tr>
+                {% endfor %}
+                
+    
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    
     </div>
     <script src="js/extention/choices.js"></script>
     <script>
