@@ -51,15 +51,20 @@ def list_clients(request):
 
 def main_search(request):
     if request.method == 'GET':
-        patients = PatientDocument.search().filter("term", first_name="Wenger")
-        for patient in patients:
-            print('------------------>>>>>>>>>> ',patient)
-            print("Patient first name : {}, Patient second name  {}".format(patient.first_name, patient.second_name))
-        print('------------------>>>>>>>>>> ')
-        import pdb
-        pdb.set_trace()
+        patients = PatientDocument.search().query("match", first_name="Wenger")
+        patients_deatils = patients.to_queryset()
         context : {
-            'patients':patients,
+            'patients':patients_deatils,
+        }
+
+        return render(request, 'search.html', context)
+    else:
+        first_name=request.get.POST("first_name")
+        second_name=request.get.POST("second_name")
+        patients = PatientDocument.search().query("match", first_name="Wenger")
+        patients_deatils = patients.to_queryset()
+        context : {
+            'patients':patients_deatils,
         }
 
         return render(request, 'search.html', context)
