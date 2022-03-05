@@ -90,3 +90,7 @@ class SearchForm(forms.Form):
         attrs={'class':'form-control',
                'placeholder': 'Enter National ID', 'id':'national_id'}
     ))
+    facility = forms.CharField(required=False , max_length=100, widget=forms.TextInput(
+        attrs={'class':'form-control',
+               'placeholder': 'Enter Facility Name', 'id':'facility'}
+    ))

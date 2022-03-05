@@ -41,17 +41,18 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="helpInputTop"></label>
-                                <input type="text" class="form-control" id="facility"
-                                    placeholder="Enter Middle Name">
+                                <label for="facility">Facility</label>
+                                {{form.facility}}
+                                <!-- <input type="text" class="form-control" id="facility"
+                                    placeholder="Enter Middle Name"> -->
                             </div>
                             <div class="form-group">
                                 <label for="helpInputTop">Name</label>
                                 {{ form.first_name }}
-                                <input type="text" class="form-control" id="second_name" placeholder="Select County">
+                                <!-- <input type="text" class="form-control" id="second_name" placeholder="Select County"> -->
                             </div>
                             <div class="form-group">
-                                <!-- <label for="helpInputTop">Phone Number</label> -->
+                                <label for="helpInputTop">Phone Number</label>
                                 {{ form.phone_number }}
                                 <!-- <input type="text" class="form-control" id="second_name"
                                     placeholder="Select Sub-Countys"> -->
@@ -62,13 +63,13 @@
                             <div class="form-group">
                                 <label for="helpInputTop">Id Number</label>
                                 <input type="text" class="form-control" id="second_name"
-                                    placeholder="Enter Middle Name">
+                                    placeholder="Enter ID Number">
                             </div>
                             <div class="form-group">
-                                <label for="helpInputTop">Phone Number</label>
-                                <!-- {{ form.second_name }} -->
-                                <input type="text" class="form-control" id="second_name"
-                                    placeholder="Select County">
+                                <label for="helpInputTop">County</label>
+                                {{ form.county }}
+                                <!-- <input type="text" class="form-control" id="second_name"
+                                    placeholder="Select County"> -->
                             </div>
                             <div class="form-group">
                                 <label for="helpInputTop">Age</label>
