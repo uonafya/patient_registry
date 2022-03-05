@@ -2,10 +2,11 @@ from django.shortcuts import render
 from .forms import ClientForm
 from api.models import Patient
 from datetime import datetime, date
+from .documents import PatientDocument
 
 def dashboard(request):
     if request.method=='GET':
-        return render(request,'base.html')
+        return render(request,'home.html')
     
 
 def new_client(request):
@@ -41,10 +42,24 @@ def new_client(request):
 
 def list_clients(request):
     patients = Patient.objects.all()
-    import pdb
-    # pdb.set_trace()
+
     if request.method == 'GET':
         context = {
             'patients': patients,
         }
         return render(request, 'all_patients.html', context)
+
+def main_search(request):
+    if request.method == 'GET':
+        patients = PatientDocument.search().filter("term", first_name="Wenger")
+        for patient in patients:
+            print('------------------>>>>>>>>>> ',patient)
+            print("Patient first name : {}, Patient second name  {}".format(patient.first_name, patient.second_name))
+        print('------------------>>>>>>>>>> ')
+        import pdb
+        pdb.set_trace()
+        context : {
+            'patients':patients,
+        }
+
+        return render(request, 'search.html', context)

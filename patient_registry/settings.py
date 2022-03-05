@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     'phonenumber_field',
+    'django_elasticsearch_dsl'
 ]
 
 MIDDLEWARE = [
@@ -90,6 +91,12 @@ DATABASES = {
         'USER': 'root',
         'PORT': '3306',
     }
+}
+ELASTICSEARCH_DSL={
+    # https://linuxize.com/post/how-to-install-elasticsearch-on-ubuntu-18-04/
+    'default': {
+        'hosts': 'localhost:9200'
+    },
 }
 
 
