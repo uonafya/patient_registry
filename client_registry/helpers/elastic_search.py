@@ -5,7 +5,7 @@ def get_search_query(phrase):
     query = Q(
         'function_score',
         query=MultiMatch(
-            fields=['first_name', 'county', 'national_id','sub_county'],
+            fields=['first_name', 'surname','second_name','county', 'national_id','sub_county'],
             query=phrase
         )
     )

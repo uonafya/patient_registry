@@ -7,6 +7,6 @@ urlpatterns = [
     path('fetch/kmhfl/facilities',views.fetch_mfl_facilities, name='get_facilities'),
     path('all/facilities',views.share_facilities, name='kmfl'),
     path('clear/cache', views.clear_cache, name='clear_cache'),
-    path('patients/search', views.PatientSearch, name='patient_search')
+    # path('patients/search', views.PatientSearch, name='patient_search')
 
 ]

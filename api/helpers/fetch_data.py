@@ -26,6 +26,8 @@ def fetch_kmhfl_facilities():
         else:
             facilities_details = cache.get("facilities_details",facilities_details)
 
+    return facilities_details
+
 
 
 def get_facilities(kmhfl_token):

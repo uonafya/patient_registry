@@ -59,15 +59,3 @@ def clear_cache(request):
             "message": ('All Caches cleared Successfully')
         }
        return Response(return_message, status=status.HTTP_200_OK)
-
-from rest_framework import generics
-class PatientSearch(generics.ListAPIView):
-    queryset = Patient.objects.all()
-    import pdb
-    # pdb.set_trace()
-    serializer_class = PatientSerializer
-    def get_queryset(self):
-        q = self.request.query_params.get('q')
-        if q is not None:
-            return search(q)
-        return super().get_queryset()

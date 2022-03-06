@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<html>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,8 +9,6 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,600,700" rel="stylesheet" />
     <link href="{% static 'assets/css/mainsearch/css/main.css' %}" rel="stylesheet" />
 </head>
-
-<body>
     <div class="s009">
         <form action="{% url 'main_search' %}" method="POST">
             {% csrf_token %}
@@ -20,11 +16,8 @@
                 <div class="basic-search">
                     <div class="input-field">
                         <div class="form-group">
-                            <!-- <label for="basicInput">First Name</label> -->
                             {{ form.keyword }}
-                            <!-- <input type="text" class="form-control" id="first_name" placeholder="Enter First Name"> -->
                         </div>
-                        <!-- <input id="first_name" type="text" placeholder="Type Keywords" /> -->
                         <div class="icon-wrap">
                             <svg class="svg-inline--fa fa-search fa-w-16" fill="#ccc" aria-hidden="true"
                                 data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -43,19 +36,14 @@
                             <div class="form-group">
                                 <label for="facility">Facility</label>
                                 {{form.facility}}
-                                <!-- <input type="text" class="form-control" id="facility"
-                                    placeholder="Enter Middle Name"> -->
                             </div>
                             <div class="form-group">
                                 <label for="helpInputTop">Name</label>
                                 {{ form.first_name }}
-                                <!-- <input type="text" class="form-control" id="second_name" placeholder="Select County"> -->
                             </div>
                             <div class="form-group">
                                 <label for="helpInputTop">Phone Number</label>
                                 {{ form.phone_number }}
-                                <!-- <input type="text" class="form-control" id="second_name"
-                                    placeholder="Select Sub-Countys"> -->
                             </div>
 
                         </div>
@@ -68,12 +56,9 @@
                             <div class="form-group">
                                 <label for="helpInputTop">County</label>
                                 {{ form.county }}
-                                <!-- <input type="text" class="form-control" id="second_name"
-                                    placeholder="Select County"> -->
                             </div>
                             <div class="form-group">
                                 <label for="helpInputTop">Age</label>
-                                <!-- {{ form.second_name }} -->
                                 <input type="text" class="form-control" id="second_name"
                                     placeholder="Select Sub-Countys">
                             </div>
@@ -97,7 +82,6 @@
         </form>
     </div>
     {% if patients %}
-    <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
@@ -106,7 +90,6 @@
                 </div>
             </div>
         </div>
-        <section class="section">
     <div class="table-responsive">
         <table class="table table-light mb-0">
             <thead>
@@ -148,27 +131,4 @@
     </div>
     {% endif %}
     
-    </div>
-    <script src="js/extention/choices.js"></script>
-    <script>
-        const customSelects = document.querySelectorAll("select");
-        const deleteBtn = document.getElementById('delete')
-        const choices = new Choices('select',
-            {
-                searchEnabled: false,
-                itemSelectText: '',
-                removeItemButton: true,
-            });
-        deleteBtn.addEventListener("click", function (e) {
-            e.preventDefault()
-            const deleteAll = document.querySelectorAll('.choices__button')
-            for (let i = 0; i < deleteAll.length; i++) {
-                deleteAll[i].click();
-            }
-        });
-
-    </script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
-
-</html>
 {% endblock content %}
