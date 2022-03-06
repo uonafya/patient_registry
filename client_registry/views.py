@@ -49,9 +49,10 @@ def list_clients(request):
         }
         return render(request, 'all_patients.html', context)
 
-        
-from .helpers.search import get_search_query
+
+from .helpers.elastic_search import get_search_query
 def main_search(request):
+    # https://apirobot.me/posts/django-elasticsearch-searching-for-awesome-ted-talks
 
     if request.method == 'GET':
         form = SearchForm()
