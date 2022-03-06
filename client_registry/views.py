@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from .forms import ClientForm, SearchForm
-from api.models import Patient
+from api.models import Patient, Facility
 from datetime import datetime, date
 from .documents import PatientDocument
+
+from .helpers.org_units import get_org_units
 
 def dashboard(request):
     if request.method=='GET':
@@ -12,7 +14,15 @@ def dashboard(request):
 def new_client(request):
     if request.method=='GET':
         form = ClientForm()
-        return render(request, "new_client.html", {'form': form})
+        org_unit = get_org_units()
+        import pdb
+        pdb.set_trace()
+        
+        context = {
+            'form': form,
+            'org_unit': org_unit
+        }
+        return render(request, "new_client.html", context)
     
     else:
         form = ClientForm(request.POST)

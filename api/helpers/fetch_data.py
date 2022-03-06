@@ -14,8 +14,6 @@ def fetch_data():
 def fetch_kmhfl_facilities():
     kmhfl_token =''
     facilities_details = []
-    import pdb
-    
     if "kmhfl_token" not in cache:
         kmhfl_token = fetch_kmhfl_token()
         cache.set("kmhfl_token",kmhfl_token)
@@ -31,7 +29,6 @@ def fetch_kmhfl_facilities():
 
 
 def get_facilities(kmhfl_token):
-    import pdb
     global page_count
     global total_pages
 
@@ -42,14 +39,14 @@ def get_facilities(kmhfl_token):
         page_count=page_count+1
         store_facilities(facilities_details.get("facilities_details"))
         get_facilities(kmhfl_token)
-    else:
-        print(" yyyyyyyyyyyyyyyyyyy ")
- 
-
-
-    
+   
 
 def fetch_facilities(page_count, kmhfl_token):
+    '''
+    Function to fetch all facilities from kmhfl API
+    Args: page_count(int), kmhfl_token (String)
+    Return: all_facilities_details (dict)
+    '''
     import pdb
     url = f"http://api.kmhfltest.health.go.ke/api/facilities/facilities/?format=json&page={page_count}"
 
@@ -78,6 +75,11 @@ def fetch_facilities(page_count, kmhfl_token):
 
 
 def fetch_kmhfl_token():
+    '''
+    Function to fetch kmhfl access Token from kmhfl API
+    Args: 
+    Return: kmhf_access_token (str)
+    '''
     url = "http://api.kmhfltest.health.go.ke/o/token/"
 
     payload='grant_type=password&username=test%40testmail.com&password=Test%401234&scope=read&client_id=fuEOuyx3A0S3mGorbFKnuJbVliKhmsN7fbDMVQ7r&client_secret=NLOXxi7VYtrbu4RUWk0j77G9brxPPU7U4zZosnL3xhtIG1dd7usHZCWHabP9x2A6eWscU88RxcXnfHWmYFAPqhNdHl4BWe2AfaVno5r7RYXYpgQHcLu4dsQrr5TBST6w'
@@ -102,7 +104,7 @@ def batch_insert_patients(data):
         
         for row in data: 
 
-            p = Patient.objects.create(gender=row[0],dob=row[1],date_updated=row[2],first_name=row[3],second_name=row[4],surname=row[5],date_created=row[6], voided=row[7],patient_id=row[8], county=row[9],village=row[10],ccc_number=row[11]) 
+            p = Patient.objects.create(gender=row[0],dob=row[1],date_updated=row[2],first_name=row[3],second_name=row[4],surname=row[5],date_created=row[6], voided=row[7],patient_id=row[8], county=row[9],village=row[10],ccc_number=row[11], mfl_code=row[12]) 
             p.save()
     except Exception as e:
         print(e)

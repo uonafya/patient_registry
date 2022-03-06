@@ -18,9 +18,10 @@ class Patient(models.Model):
     ccc_number = models.CharField(max_length=254, null=True)
     phone_number = PhoneNumberField(null=True, blank=True, unique=False)
     national_id = models.CharField(max_length=254, null=True)
+    mfl_code = models.CharField(max_length=254, null=True)
 
     def __str__(self):
-        return '%s %s' % (self.first_name, self.second_name, self.surname, self.ccc_number, self.national_id,self.county)
+        return '%s %s' % (self.first_name, self.second_name, self.surname, self.ccc_number, self.national_id,self.county, self.mfl_code)
 
 class Facility(models.Model):
     name = models.CharField(max_length=254, null=True)

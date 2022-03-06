@@ -39,10 +39,10 @@ def fetch_kenyaemr_patients(connection):
                 lastupdate=datetime.strptime(data.split("=")[1], '%Y-%m-%d %H:%M:%S')
 
             get_query = ''' SELECT prsn.gender, prsn.birthdate, prsn.date_changed, pname.given_name as gname,pname.middle_name mname,pname.family_name as fname,
-                                                    pt.date_created,pt.voided,pt.patient_id, paddress.country, paddress.city_village, ccc.identifier
+                                                    pt.date_created,pt.voided,pt.patient_id, paddress.country, paddress.city_village, ccc.identifier, encounters.location_id
                                                     FROM person prsn inner join person_name pname on pname.person_id=prsn.person_id
                                                     inner join patient pt on pt.patient_id=prsn.person_id inner join person_address paddress on paddress.person_id=prsn.person_id 
-                                                    inner join patient_identifier ccc on ccc.patient_id=prsn.person_id '''
+                                                    inner join patient_identifier ccc on ccc.patient_id=prsn.person_id inner join kenyaemr.encounter encounters on encounters.patient_id=prsn.person_id '''
             connection.execute(get_query)
             data = connection.fetchall()
             
@@ -58,7 +58,7 @@ def  update_db(connection, data):
     try:
         import pdb
         for row in data: 
-            p = Patient.objects.create(gender=row[0],dob=row[1],date_updated=row[2],first_name=row[3],second_name=row[4],surname=row[5],date_created=row[6], voided=row[7],patient_id=row[8]) 
+            p = Patient.objects.create(gender=row[0],dob=row[1],date_updated=row[2],first_name=row[3],second_name=row[4],surname=row[5],date_created=row[6], voided=row[7],patient_id=row[8], mfl_code=row[9]) 
             p.save()
     except Exception as e:
 

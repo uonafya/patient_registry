@@ -46,7 +46,7 @@ def share_facilities(request):
     serializer = FacilitySerializer(facilities, many=True)
 
     return_message = {
-            "message": ('All facilities fetched Successfully'),
+            # "message": ('All facilities fetched Successfully'),
             "data": serializer.data
         }
     return Response(return_message, status=status.HTTP_200_OK)
@@ -64,7 +64,7 @@ from rest_framework import generics
 class PatientSearch(generics.ListAPIView):
     queryset = Patient.objects.all()
     import pdb
-    pdb.set_trace()
+    # pdb.set_trace()
     serializer_class = PatientSerializer
     def get_queryset(self):
         q = self.request.query_params.get('q')
