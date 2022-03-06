@@ -49,6 +49,8 @@ def list_clients(request):
         }
         return render(request, 'all_patients.html', context)
 
+        
+from .helpers.search import get_search_query
 def main_search(request):
 
     if request.method == 'GET':
@@ -56,13 +58,8 @@ def main_search(request):
 
         return render(request, 'search.html',{'form': form})
     else:
-        import pdb
-        
         keyword=request.POST.get("keyword")
-        # second_name=request.POST.get("first_name")
-        patients = PatientDocument.search().query("match", first_name=keyword)
-        patients_deatils = patients.to_queryset()
-        # pdb.set_trace()
+        patients_deatils = get_search_query(keyword).to_queryset()
 
         context = {
             'patients':patients_deatils,

@@ -6,9 +6,10 @@ from api.models import Patient,Facility
 class PatientDocument(Document):
     class Index:
         name = 'patient'
-    settings = {
-        'number_of_shards': 1,
-        'number_of_replicas': 0
+
+        settings = {
+            'number_of_shards': 1,
+            'number_of_replicas': 10
     }
     class Django:
          model = Patient
@@ -17,5 +18,6 @@ class PatientDocument(Document):
              'second_name',
              'ccc_number',
              'county',
-             'sub_county'
-         ]
+             'sub_county',
+             'national_id',
+             ]
