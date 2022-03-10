@@ -1,6 +1,8 @@
 from django import forms
 from django.forms import ModelForm
 from api.models import Patient, Facility
+from random import randrange
+
 
 import json
 
@@ -8,11 +10,12 @@ import json
 GENDER_CHOICES = (('Male', 'Male'), ('Female', 'Female'), ('Other','Other'))
 def get_county():
     counties_list = []
-    facilities = Facility.objects.values_list("id", "county")
+    facilities = Facility.objects.values("county").distinct()
 
     for county in facilities:
-        county_details = []
-        counties_list.append(county)
+        print(county['county'])
+        county_details = [randrange(10),county['county']]
+        counties_list.append(county_details)
     
     return counties_list
 
@@ -41,7 +44,9 @@ class ClientForm(forms.Form):
 
     county = forms.CharField(
         widget=forms.Select(
-        choices=get_county()))
+            attrs={'class':'form-control',
+               'placeholder': 'Select Select County', 'id':'id_county'},
+            choices=get_county()))
 
     sub_county = forms.CharField(label='Select Sub County', max_length=100, widget=forms.TextInput(
         attrs={'class':'form-control',
