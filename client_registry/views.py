@@ -16,6 +16,7 @@ def new_client(request):
         form = ClientForm()
         org_unit = get_org_units()
         import pdb
+        print("------------>>.................. ",org_unit)
         
         context = {
             'form': form,

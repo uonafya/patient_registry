@@ -13,8 +13,8 @@ def get_county():
     facilities = Facility.objects.values("county").distinct()
 
     for county in facilities:
-        print(county['county'])
-        county_details = [randrange(10),county['county']]
+        # facilitiest_list = list(facilities)
+        county_details = [county['county'],county['county']]
         counties_list.append(county_details)
     
     return counties_list

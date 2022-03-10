@@ -59,3 +59,20 @@ def clear_cache(request):
             "message": ('All Caches cleared Successfully')
         }
        return Response(return_message, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def fetch_counties(request, county_name):
+    if request.method == 'GET':
+       sub_counties_details = Facility.objects.filter(county=county_name)
+       serializer = FacilitySerializer(sub_counties_details, many=True)
+       sub_counties_array = []
+       for sub_county in serializer.data:
+            if sub_county['sub_county'] not in sub_counties_array:
+                sub_counties_array.append(sub_county['sub_county'])
+
+       return_message = {
+                # "message": ('All facilities fetched Successfully'),
+                "data": sub_counties_array
+            }
+
+       return Response(return_message, status=status.HTTP_200_OK)

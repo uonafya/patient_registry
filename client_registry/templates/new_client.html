@@ -98,8 +98,13 @@
 
 <script>
 $("#id_county").change(function () {
+    
       var url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
-      var countryId = $(this).val();  // get the selected country ID from the HTML input
+      var countyName = $(this).val();  // get the selected country ID from the HTML input
+      console.log('------------>>> '+"{{org_unit}}");
+
+
+
 
       $.ajax({                       // initialize an AJAX request
         url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
