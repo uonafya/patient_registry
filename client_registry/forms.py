@@ -1,6 +1,21 @@
 from django import forms
+from django.forms import ModelForm
+from api.models import Patient, Facility
+
+import json
+
 
 GENDER_CHOICES = (('Male', 'Male'), ('Female', 'Female'), ('Other','Other'))
+def get_county():
+    counties_list = []
+    facilities = Facility.objects.values_list("id", "county")
+
+    for county in facilities:
+        county_details = []
+        counties_list.append(county)
+    
+    return counties_list
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -23,10 +38,11 @@ class ClientForm(forms.Form):
         choices=GENDER_CHOICES))
 
     dob = forms.DateField(label="Date of birth", widget=DateInput)
-    county = forms.CharField(max_length=100, widget=forms.TextInput(
-        attrs={'class':'form-control',
-               'placeholder': 'Select County', 'id':'county'}
-    ))
+
+    county = forms.CharField(
+        widget=forms.Select(
+        choices=get_county()))
+
     sub_county = forms.CharField(label='Select Sub County', max_length=100, widget=forms.TextInput(
         attrs={'class':'form-control',
                'placeholder': 'Select Sub County', 'id':'sub_county'}
@@ -51,7 +67,7 @@ class ClientForm(forms.Form):
     phone_number = forms.CharField(label='Select Sub County', max_length=100, widget=forms.TextInput(
         attrs={'class':'form-control',
                'placeholder': 'Enter Village', 'id':'phone_number'}
-    ))
+))
 
 class SearchForm(forms.Form):
     keyword = forms.CharField(required=False, max_length=100, widget=forms.TextInput(

@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -30,7 +31,23 @@ class Facility(models.Model):
     county = models.CharField(max_length=150, null=True)
     sub_county = models.CharField(max_length=150, null=True)
     ward = models.CharField(max_length=150, null=True)
+    # ward_id = models.CharField(max_length=150, null=True)
 
     def __str__(self):
         return '%s' % (self.name, self.mfl_code, self.facility_type, self.county, self.sub_county,self.ward)
     
+
+# class County(models.Model):
+#     uuid = models.CharField(max_length=254, null=True)
+#     name = models.CharField(max_length=254, null=True)
+
+# class Sub_county(models.Model):
+#     uuid = models.CharField(max_length=254, null=True)
+#     name = models.CharField(max_length=254, null=True)
+#     county_id = models.CharField(max_length=254, null=True)
+
+# class Ward(models.Model):
+#     uuid = models.CharField(max_length=254, null=True)
+#     name = models.CharField(max_length=254, null=True)
+#     sub_county_id = models.CharField(max_length=254, null=True)
+

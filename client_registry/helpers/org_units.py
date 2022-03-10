@@ -1,4 +1,4 @@
-from api.serializers import PatientSerializer
+from api.serializers import PatientSerializer, FacilitySerializer
 from django.core.cache import cache
 from api.models import Facility
 from rest_framework import serializers
@@ -16,5 +16,5 @@ def get_org_units():
     else:
         org_unit = Facility.objects.all()
         cache.set("org_unit", org_unit)
-    serializers_data = PatientSerializer(org_unit, many=True)
+    serializers_data = FacilitySerializer(org_unit, many=True)
     return serializers_data.data

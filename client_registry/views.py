@@ -16,7 +16,6 @@ def new_client(request):
         form = ClientForm()
         org_unit = get_org_units()
         import pdb
-        pdb.set_trace()
         
         context = {
             'form': form,
