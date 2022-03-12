@@ -53,9 +53,10 @@ class ClientForm(forms.Form):
         attrs={'class':'form-control',
                'placeholder': 'Select Sub County', 'id':'id_sub_county'}
     ))
-    ward = forms.CharField(label='Select Ward', max_length=100, widget=forms.TextInput(
+    ward = forms.CharField(label='Select Ward', max_length=100, 
+    widget=forms.Select(
         attrs={'class':'form-control',
-               'placeholder': 'Selects Ward', 'id':'ward'}
+               'placeholder': 'Selects Ward', 'id':'id_ward'}
     ))
     national_id = forms.CharField(label='Select Sub County', max_length=100, widget=forms.TextInput(
         attrs={'class':'form-control',

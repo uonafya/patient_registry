@@ -84,22 +84,37 @@ from api.serializers import PatientSerializer, FacilitySerializer
 from api.models import Patient, Facility
 
 @api_view(['GET'])
-def fetch_counties(request, county_name):
+def fetch_sub_counties(request, county_name):
     if request.method == 'GET':
        sub_counties_details = Facility.objects.filter(county=county_name).values('sub_county').distinct()
        serializer = FacilitySerializer(sub_counties_details, many=True)
-       import pdb
-    #    pdb.set_trace()
        sub_counties_array = []
        for sub_county in serializer.data:
-            # if sub_county['sub_county'] not in sub_counties_array:
-            #sub_county = [sub_county['sub_county'],sub_county['sub_county']]
             sub_county = sub_county['sub_county']
             sub_counties_array.append(sub_county)
 
        return_message = {
                 # "message": ('All facilities fetched Successfully'),
                 "data": sub_counties_array
+            }
+
+       return Response(return_message, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def fetch_wards(request, sub_county_name):
+    if request.method == 'GET':
+       sub_counties_details = Facility.objects.filter(sub_county=sub_county_name).values('ward').distinct()
+       serializer = FacilitySerializer(sub_counties_details, many=True)
+       wards_array = []
+       import pdb
+       for single_wards in serializer.data:
+           
+            wards = single_wards['ward']
+            wards_array.append(wards)
+    #    pdb.set_trace()
+       return_message = {
+                # "message": ('All facilities fetched Successfully'),
+                "data": wards_array
             }
 
        return Response(return_message, status=status.HTTP_200_OK)

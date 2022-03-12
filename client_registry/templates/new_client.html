@@ -100,10 +100,6 @@
     $("#id_county").change(function () {
        var countyName = $(this).val();  // get the selected country ID from the HTML input
         var org_unit = "{{org_unit}}"
-        console.log('------------>>> ' + org_unit);
-
-
-
         $.ajax({
             type: 'GET',
             url: "{% url 'sub_counties' county_name='Nairobi' %}",
@@ -111,6 +107,21 @@
                 response.data.map(dt => 
                 {
                     $('#id_sub_county').append($('<option></option>').val(dt).html(dt));
+                })
+
+            }
+        });
+    });
+
+    $("#id_sub_county").change(function () {
+       var SubCountyName = $(this).val();  // get the selected country ID from the HTML input
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'wards' sub_county_name='Kibra' %}",
+            success: function (response) {
+                response.data.map(dt => 
+                {   
+                    $('#id_ward').append($('<option></option>').val(dt).html(dt));
                 })
 
             }
