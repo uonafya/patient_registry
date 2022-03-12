@@ -63,12 +63,15 @@ def clear_cache(request):
 @api_view(['GET'])
 def fetch_counties(request, county_name):
     if request.method == 'GET':
-       sub_counties_details = Facility.objects.filter(county=county_name)
+       sub_counties_details = Facility.objects.filter(county=county_name).values('sub_county').distinct()
        serializer = FacilitySerializer(sub_counties_details, many=True)
+       import pdb
+       pdb.set_trace()
        sub_counties_array = []
        for sub_county in serializer.data:
-            if sub_county['sub_county'] not in sub_counties_array:
-                sub_counties_array.append(sub_county['sub_county'])
+            # if sub_county['sub_county'] not in sub_counties_array:
+            sub_county = [sub_county['sub_county'],sub_county['sub_county']]
+            sub_counties_array.append(sub_county)
 
        return_message = {
                 # "message": ('All facilities fetched Successfully'),

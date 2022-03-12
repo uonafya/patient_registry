@@ -48,11 +48,12 @@ class ClientForm(forms.Form):
                'placeholder': 'Select Select County', 'id':'id_county'},
             choices=get_county()))
 
-    sub_county = forms.CharField(label='Select Sub County', max_length=100, widget=forms.TextInput(
+    sub_county = forms.CharField(label='Select Sub County', max_length=100, 
+        widget=forms.Select(
         attrs={'class':'form-control',
-               'placeholder': 'Select Sub County', 'id':'sub_county'}
+               'placeholder': 'Select Sub County', 'id':'id_sub_county'}
     ))
-    ward = forms.CharField(label='Select Sub County', max_length=100, widget=forms.TextInput(
+    ward = forms.CharField(label='Select Ward', max_length=100, widget=forms.TextInput(
         attrs={'class':'form-control',
                'placeholder': 'Selects Ward', 'id':'ward'}
     ))
