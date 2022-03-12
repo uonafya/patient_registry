@@ -81,6 +81,10 @@
                             {{form.ward}}
                         </div>
                         <div class="form-group">
+                            <label for="disabledInput">Facility</label>
+                            {{form.facility}}
+                        </div>
+                        <div class="form-group">
                             <label for="disabledInput">village</label>
                             {{form.village}}
                         </div>
@@ -122,6 +126,21 @@
                 response.data.map(dt => 
                 {   
                     $('#id_ward').append($('<option></option>').val(dt).html(dt));
+                })
+
+            }
+        });
+    });
+
+    $("#id_ward").change(function () {
+       var SubCountyName = $(this).val();  // get the selected country ID from the HTML input
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'facilities' ward_name='Lindi' %}",
+            success: function (response) {
+                response.data.map(dt => 
+                {   
+                    $('#id_facility').append($('<option></option>').val(dt).html(dt));
                 })
 
             }

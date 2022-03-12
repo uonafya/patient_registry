@@ -118,3 +118,22 @@ def fetch_wards(request, sub_county_name):
             }
 
        return Response(return_message, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def fetch_facility(request, ward_name):
+    if request.method == 'GET':
+       sub_counties_details = Facility.objects.filter(ward=ward_name).values('name').distinct()
+       serializer = FacilitySerializer(sub_counties_details, many=True)
+       facility_array = []
+       import pdb
+       for facility in serializer.data:
+           
+            wards = facility['name']
+            facility_array.append(wards)
+    #    pdb.set_trace()
+       return_message = {
+                # "message": ('All facilities fetched Successfully'),
+                "data": facility_array
+            }
+
+       return Response(return_message, status=status.HTTP_200_OK)

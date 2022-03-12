@@ -7,5 +7,6 @@ urlpatterns = [
     path('search', views.main_search, name="main_search"),
     path('subcounty/<slug:county_name>/', views.fetch_sub_counties, name='sub_counties'),
     path('wards/<slug:sub_county_name>/', views.fetch_wards, name='wards'),
+    path('facilities/<slug:ward_name>/', views.fetch_facility, name='facilities'),
 
 ]
