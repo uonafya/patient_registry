@@ -6,6 +6,12 @@ from .documents import PatientDocument
 
 from .helpers.org_units import get_org_units
 
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from api.serializers import FacilitySerializer
+from api.models import Patient, Facility
+
 def dashboard(request):
     if request.method=='GET':
         return render(request,'home.html')
@@ -77,11 +83,7 @@ def main_search(request):
         }
 
         return render(request, 'search.html', context)
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from api.serializers import PatientSerializer, FacilitySerializer
-from api.models import Patient, Facility
+
 
 @api_view(['GET'])
 def fetch_sub_counties(request, county_name):
