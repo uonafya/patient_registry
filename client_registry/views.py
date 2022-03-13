@@ -96,7 +96,6 @@ def fetch_sub_counties(request, county_name):
             sub_counties_array.append(sub_county)
 
        return_message = {
-                # "message": ('All facilities fetched Successfully'),
                 "data": sub_counties_array
             }
 
@@ -115,7 +114,6 @@ def fetch_wards(request, sub_county_name):
             wards_array.append(wards)
     #    pdb.set_trace()
        return_message = {
-                # "message": ('All facilities fetched Successfully'),
                 "data": wards_array
             }
 
@@ -132,10 +130,45 @@ def fetch_facility(request, ward_name):
            
             wards = facility['name']
             facility_array.append(wards)
-    #    pdb.set_trace()
        return_message = {
-                # "message": ('All facilities fetched Successfully'),
                 "data": facility_array
             }
 
        return Response(return_message, status=status.HTTP_200_OK)
+
+from django.contrib.auth import login, authenticate, logout
+from django.contrib import messages
+from django.shortcuts import render, redirect, HttpResponse, HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        import pdb
+        pdb.set_trace()
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'logged in successfully')
+            return redirect('home')
+        else:
+            messages.success(request, 'Incorect username/password')
+            return redirect('login')
+
+    else:  # Get method ->
+        # check if test user exists
+        if User.objects.filter(username='test').exists():
+            return render(request, 'accounts/login.html')
+        # if test user does not exist, create user
+        else:
+            user = User.objects.create_user(
+                first_name='test',
+                last_name='user',
+                username='test',
+                password='test',
+                email='test@covid.com'
+            )
+            user.save()
+            return render(request, 'accounts/login.html')
