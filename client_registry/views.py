@@ -1,22 +1,31 @@
 from django.shortcuts import render
-from .forms import ClientForm, SearchForm
-from api.models import Patient, Facility
-from datetime import datetime, date
-from .documents import PatientDocument
-
-from .helpers.org_units import get_org_units
+from django.contrib.auth import login, authenticate, logout
+from django.contrib import messages
+from django.shortcuts import render, redirect, HttpResponse, HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+
+
 from api.serializers import FacilitySerializer
 from api.models import Patient, Facility
+from .helpers.org_units import get_org_units
+from .forms import ClientForm, SearchForm
+from api.models import Patient, Facility
+from datetime import datetime, date
+from .documents import PatientDocument
+from .helpers.elastic_search import get_search_query
 
+
+@login_required(login_url='login')
 def dashboard(request):
     if request.method=='GET':
         return render(request,'home.html')
     
-
+@login_required(login_url='login')
 def new_client(request):
     if request.method=='GET':
         form = ClientForm()
@@ -55,7 +64,7 @@ def new_client(request):
             patient.save()
         return render(request, "new_client.html", {'form': form})
 
-
+@login_required(login_url='login')
 def list_clients(request):
     patients = Patient.objects.all()
 
@@ -66,7 +75,7 @@ def list_clients(request):
         return render(request, 'all_patients.html', context)
 
 
-from .helpers.elastic_search import get_search_query
+@login_required(login_url='login')
 def main_search(request):
     # https://apirobot.me/posts/django-elasticsearch-searching-for-awesome-ted-talks
 
@@ -136,11 +145,7 @@ def fetch_facility(request, ward_name):
 
        return Response(return_message, status=status.HTTP_200_OK)
 
-from django.contrib.auth import login, authenticate, logout
-from django.contrib import messages
-from django.shortcuts import render, redirect, HttpResponse, HttpResponsePermanentRedirect, HttpResponseRedirect
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+
 
 def user_login(request):
     if request.method == 'POST':
