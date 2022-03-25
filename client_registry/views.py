@@ -23,19 +23,18 @@ from .helpers.elastic_search import get_search_query
 @login_required(login_url='login')
 def dashboard(request):
     if request.method=='GET':
-        return render(request,'home.html')
+        return render(request,'base.html')
     
 @login_required(login_url='login')
 def new_client(request):
     if request.method=='GET':
         form = ClientForm()
-        org_unit = get_org_units()
+        # org_unit = get_org_units()
         import pdb
-        print("------------>>.................. ",org_unit)
         
         context = {
             'form': form,
-            'org_unit': org_unit
+            # 'org_unit': org_unit
         }
         return render(request, "new_client.html", context)
     
@@ -146,14 +145,15 @@ def fetch_facility(request, ward_name):
        return Response(return_message, status=status.HTTP_200_OK)
 
 
+from django.contrib.auth import get_user_model
 
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        import pdb
-        pdb.set_trace()
+        # import pdb
+        # pdb.set_trace()
         if user is not None:
             login(request, user)
             messages.success(request, 'logged in successfully')
@@ -164,6 +164,7 @@ def user_login(request):
 
     else:  # Get method ->
         # check if test user exists
+        User = get_user_model()
         if User.objects.filter(username='test').exists():
             return render(request, 'accounts/login.html')
         # if test user does not exist, create user
@@ -173,7 +174,10 @@ def user_login(request):
                 last_name='user',
                 username='test',
                 password='test',
-                email='test@covid.com'
+                email='test@covid.com',
+                facility_code=10017,
+                is_staff=True,
+                is_admin=True,
             )
             user.save()
             return render(request, 'accounts/login.html')

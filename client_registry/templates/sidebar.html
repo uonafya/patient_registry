@@ -17,7 +17,7 @@
             
             <li
                 class="sidebar-item  ">
-                <a href="index.html" class='sidebar-link'>
+                <a href="{% url 'home' %}" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
@@ -27,21 +27,21 @@
                 class="sidebar-item active has-sub">
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-stack"></i>
-                    <span>Components</span>
+                    <span>Client Actions</span>
                 </a>
                 <ul class="submenu active">
                     <li class="submenu-item ">
-                        <a href="component-alert.html">Alert</a>
+                        <a href="{% url 'add_new_client' %}">Add Client</a>
                     </li>
                     <li class="submenu-item ">
-                        <a href="component-badge.html">Badge</a>
+                        <a href="{% url 'list_clients' %}">All Clients</a>
                     </li>
-                    <li class="submenu-item ">
+                    <!-- <li class="submenu-item ">
                         <a href="component-breadcrumb.html">Breadcrumb</a>
                     </li>
                     <li class="submenu-item ">
                         <a href="component-button.html">Button</a>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             

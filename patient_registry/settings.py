@@ -76,6 +76,8 @@ TEMPLATES = [
     },
 ]
 
+AUTH_USER_MODEL = 'client_registry.User'
+
 WSGI_APPLICATION = 'patient_registry.wsgi.application'
 
 

@@ -103,7 +103,6 @@
 <script>
     $("#id_county").change(function () {
        var countyName = $(this).val();  // get the selected country ID from the HTML input
-        var org_unit = "{{org_unit}}"
         $.ajax({
             type: 'GET',
             url: "{% url 'sub_counties' county_name='Nairobi' %}",

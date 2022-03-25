@@ -25,6 +25,7 @@ class Patient(models.Model):
         return '%s %s' % (self.first_name, self.second_name, self.surname, self.ccc_number, self.national_id,self.county, self.mfl_code)
 
 class Facility(models.Model):
+    # user = models.OneToOneField(settings.AUTH_USER_MODEL)
     name = models.CharField(max_length=254, null=True)
     mfl_code = models.CharField(max_length=128, null=True)
     facility_type = models.CharField(max_length=150, null=True)
