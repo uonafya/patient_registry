@@ -77,6 +77,7 @@ def list_clients(request):
     all_patients=""
 
     if "all_patients" not in cache:
+        print("--------------->>>>>>>>>> ")
         all_patients = Patient.objects.all()
 
         cache.set("all_patients",all_patients, timeout=settings.CACHE_TIME_OUT)

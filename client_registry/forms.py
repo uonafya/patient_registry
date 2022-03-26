@@ -58,7 +58,7 @@ class ClientForm(forms.Form):
         attrs={'class':'form-control',
                'placeholder': 'Selects Ward', 'id':'id_ward'}
     ))
-    facility = forms.CharField(label='Select Facility', max_length=100, 
+    facility = forms.CharField(required=True,label='Select Facility', max_length=100, 
     widget=forms.Select(
         attrs={'class':'form-control',
                'placeholder': 'Selects Facility', 'id':'id_facility'}
@@ -68,7 +68,7 @@ class ClientForm(forms.Form):
                'placeholder': 'Enter National ID', 'id':'national_id'}
     ))
 
-    ccc_number = forms.CharField(label='Select Sub County', max_length=100, widget=forms.TextInput(
+    ccc_number = forms.CharField(required=True, label='Select Sub County', max_length=100, widget=forms.TextInput(
         attrs={'class':'form-control',
                'placeholder': 'CCC Number', 'id':'ccc_number'}
     ))

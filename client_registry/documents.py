@@ -16,6 +16,7 @@ class PatientDocument(Document):
          fields = [
              'first_name',
              'second_name',
+             'surname',
              'ccc_number',
              'county',
              'sub_county',
