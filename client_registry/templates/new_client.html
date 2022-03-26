@@ -30,65 +30,78 @@
 
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
-                        <form action="{% url 'add_new_client' %}" method="POST">
-                            {% csrf_token %}
+                    <form action="{% url 'add_new_client' %}" method="POST"></form>
+                    {% csrf_token %}
+                    <div class="col-md-3">
+                        
+                            
                             <div class="form-group">
                                 <label for="basicInput">First Name</label>
                                 {{ form.first_name }}
                             </div>
-
-                            <div class="form-group">
-                                <label for="helpInputTop">Second Name</label>
-                                {{ form.second_name }}
-                            </div>
-
-                            <div class="form-group">
-                                <label for="helperText">Surname</label>
-                                {{ form.surname }}
-                            </div>
                             <div class="form-group">
                                 <label for="disabledInput">Date Of Birth</label>
+                            </br>
                                 {{ form.dob }}
                             </div>
-                            <label for="disabledInput">Gender</label>
-                            {{form.gender}}
+                            <div class="form-group">
+                                <label for="disabledInput">County</label>
+                                {{form.county}}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="disabledInput">Facility</label>
+                                {{form.facility}}
+                            </div>
+                            
+       
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="helpInputTop">Second Name</label>
+                            {{ form.second_name }}
+                        </div>
+                        <div class="form-group">
+                            <label for="disabledInput">Gender</label>
+                        </br>
+                            {{form.gender}}
+                        </div>
+                        <div class="form-group">
+                            <label for="disabledInput">Sub-County</label>
+                            {{form.sub_county}}
+                        </div>
                         <div class="form-group">
                             <label for="disabledInput">CCC Number</label>
                             {{ form.ccc_number }}
                         </div>
+
+                        <!-- <div class="form-group">
+                            <label for="disabledInput">village</label>
+                            {{form.village}}
+                        </div> -->
+                    </div>
+                    <div class="col-md-3">
+                        
                         <div class="form-group">
-                            <label for="disabledInput">Phone Number</label>
-                            {{ form.phone_number }}
-                        </div>
-                        <div class="form-group">
-                            <label for="disabledInput">National ID Number</label>
-                            {{form.national_id}}
-                        </div>
-                        <div class="form-group">
-                            <label for="disabledInput">County</label>
-                            {{form.county}}
+                            <label for="helperText">Surname</label>
+                            {{ form.surname }}
                         </div>
 
                         <div class="form-group">
-                            <label for="disabledInput">Sub-County</label>
-                            {{form.sub_county}}
+                            <label for="disabledInput">National ID Number</label>
+                            {{form.national_id}}
                         </div>
                         <div class="form-group">
                             <label for="disabledInput">Ward</label>
                             {{form.ward}}
                         </div>
                         <div class="form-group">
-                            <label for="disabledInput">Facility</label>
-                            {{form.facility}}
+                            <label for="disabledInput">Phone Number</label>
+                            {{ form.phone_number }}
                         </div>
-                        <div class="form-group">
-                            <label for="disabledInput">village</label>
-                            {{form.village}}
-                        </div>
-                    </div>
+                       
+                </div>
+                    
                     <div class="col-md-4"> <input class="btn btn-primary" type="submit" value="Submit">
                     </div>
                     </form>

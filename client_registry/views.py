@@ -29,7 +29,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 @login_required(login_url='login')
 def dashboard(request):
     if request.method=='GET':
-        return render(request,'base.html')
+        return render(request,'home.html')
     
 @login_required(login_url='login')
 def new_client(request):

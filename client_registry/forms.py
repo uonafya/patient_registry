@@ -37,7 +37,7 @@ class ClientForm(forms.Form):
                'placeholder': 'Enter surname', 'id':'surname'}
     ))
     gender = forms.CharField(
-        widget=forms.RadioSelect(
+        widget=forms.Select(
         choices=GENDER_CHOICES))
 
     dob = forms.DateField(required=True,label="Date of birth", widget=DateInput)
@@ -54,7 +54,7 @@ class ClientForm(forms.Form):
                'placeholder': 'Select Sub County', 'id':'id_sub_county'}
     ))
     ward = forms.CharField(required=True,label='Select Ward', max_length=100, 
-    widget=forms.Select(
+        widget=forms.Select(
         attrs={'class':'form-control',
                'placeholder': 'Selects Ward', 'id':'id_ward'}
     ))
