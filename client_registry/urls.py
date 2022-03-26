@@ -11,8 +11,8 @@ urlpatterns = [
     path('subcounty/<slug:county_name>/', views.fetch_sub_counties, name='sub_counties'),
     path('wards/<slug:sub_county_name>/', views.fetch_wards, name='wards'),
     path('facilities/<slug:ward_name>/', views.fetch_facility, name='facilities'),
-
     path('login/', views.user_login, name='login'),
     path('logout', views.user_logout, name='logout'),
+    path('transfer_patient/<int:pk>/', views.edit_patient, name='transfer_patient'),
 
 ]

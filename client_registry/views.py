@@ -62,13 +62,28 @@ def new_client(request):
             ccc_number = request.POST.get('ccc_number')
             village = request.POST.get('village')
             date_created = date.today()
+            # facility = request.POST.get('facility')
             
 
-            patient = Patient(first_name=first_name,second_name=second_name, surname=surname,gender=gender, dob=dob, county=county,
-                            sub_county=sub_county, ward=ward, national_id=national_id,ccc_number=ccc_number, date_created=date_created, village=village)
+            patient = Patient(
+                first_name=first_name,
+                second_name=second_name, 
+                surname=surname,
+                gender=gender, 
+                dob=dob, 
+                county=county,
+                sub_county=sub_county, 
+                ward=ward, 
+                national_id=national_id,
+                ccc_number=ccc_number, 
+                date_created=date_created, 
+                village=village,
+                # facility=facility,
+                phone_number=phone_number
+                )
             patient.save()
 
-            return redirect('/client/add/client/')
+            return redirect('add_new_client')
 
         return render(request, "new_client.html", {'form': form})
 
@@ -214,5 +229,50 @@ def user_login(request):
 @login_required(login_url='login')
 def user_logout(request):
     logout(request)
-    messages.success(request, 'logged in successfully')
+    messages.success(request, 'logged out successfully!')
     return redirect('login')
+
+@login_required(login_url='login')
+def edit_patient(request, pk):
+    if request.method == 'GET':
+        patient = Patient.objects.get(id=pk)
+
+        context = {'patient': patient}
+        import pdb
+        return render(request, 'edit_patient.html', context)
+
+    else:
+        form = ClientForm(request.POST)
+
+        if form.is_valid():
+            first_name = request.POST.get('first_name')
+            second_name = request.POST.get('second_name')
+            surname = request.POST.get('surname')
+            gender = request.POST.get('gender')
+            dob = request.POST.get('dob')
+            county = request.POST.get('county')
+            sub_county = request.POST.get('sub_county')
+            ward = request.POST.get('ward')
+            national_id = request.POST.get('national_id')
+            phone_number = request.POST.get('phone_number')
+            ccc_number = request.POST.get('ccc_number')
+            village = request.POST.get('village')
+            date_created = date.today()
+            
+
+            patient = Patient(
+                first_name=first_name,
+                second_name=second_name, 
+                surname=surname,
+                gender=gender, 
+                dob=dob, 
+                county=county,
+                sub_county=sub_county, 
+                ward=ward, 
+                national_id=national_id,
+                ccc_number=ccc_number, 
+                date_created=date_created, 
+                village=village)
+            patient.save()
+        messages.success(request, 'Patient transfered successfully.')
+        return redirect('all')

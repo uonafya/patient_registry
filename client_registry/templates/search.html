@@ -119,7 +119,7 @@
                     <td>{{patient.sub_county}}</td>
                     <td class="text-bold-500">{{patient.ward}}</td>
                     <td>Facility Name</td>
-                    <td><a href="#!">Update</a></td>
+                    <td><a href="{% url 'transfer_patient' patient.id %}">Transfer Patient</a></td>
                     <td><a href="#!">View</a></td>
                    
                 </tr>

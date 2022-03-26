@@ -24,7 +24,7 @@ class DateInput(forms.DateInput):
 
 
 class ClientForm(forms.Form):
-    first_name = forms.CharField(max_length=100, widget=forms.TextInput(
+    first_name = forms.CharField(required=True,max_length=100, widget=forms.TextInput(
         attrs={'class':'form-control',
                'placeholder': 'First Name', 'id':'first_name'}
     ))
@@ -40,20 +40,20 @@ class ClientForm(forms.Form):
         widget=forms.RadioSelect(
         choices=GENDER_CHOICES))
 
-    dob = forms.DateField(label="Date of birth", widget=DateInput)
+    dob = forms.DateField(required=True,label="Date of birth", widget=DateInput)
 
-    county = forms.CharField(
+    county = forms.CharField(required=True,
         widget=forms.Select(
             attrs={'class':'form-control',
                'placeholder': 'Select Select County', 'id':'id_county'},
             choices=get_county()))
 
-    sub_county = forms.CharField(label='Select Sub County', max_length=100, 
+    sub_county = forms.CharField(required=True,label='Select Sub County', max_length=100, 
         widget=forms.Select(
         attrs={'class':'form-control',
                'placeholder': 'Select Sub County', 'id':'id_sub_county'}
     ))
-    ward = forms.CharField(label='Select Ward', max_length=100, 
+    ward = forms.CharField(required=True,label='Select Ward', max_length=100, 
     widget=forms.Select(
         attrs={'class':'form-control',
                'placeholder': 'Selects Ward', 'id':'id_ward'}
@@ -78,7 +78,7 @@ class ClientForm(forms.Form):
     ))
     phone_number = forms.CharField(label='Select Sub County', max_length=100, widget=forms.TextInput(
         attrs={'class':'form-control',
-               'placeholder': 'Enter Village', 'id':'phone_number'}
+               'placeholder': 'Enter Phone Number', 'id':'phone_number'}
 ))
 
 class SearchForm(forms.Form):
