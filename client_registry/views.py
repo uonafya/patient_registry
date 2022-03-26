@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponse, HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from api.views import all_patients
+from django.core.cache import cache
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -18,6 +20,10 @@ from api.models import Patient, Facility
 from datetime import datetime, date
 from .documents import PatientDocument
 from .helpers.elastic_search import get_search_query
+from django.conf import settings
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 @login_required(login_url='login')
@@ -68,9 +74,26 @@ def new_client(request):
 
 @login_required(login_url='login')
 def list_clients(request):
-    patients = Patient.objects.all()
+    all_patients=""
+
+    if "all_patients" not in cache:
+        all_patients = Patient.objects.all()
+
+        cache.set("all_patients",all_patients, timeout=settings.CACHE_TIME_OUT)
+    else:
+        all_patients = cache.get("all_patients")
+
+    paginator = Paginator(all_patients, 40)
+
 
     if request.method == 'GET':
+        page = request.GET.get('page', 1)
+        try:
+            patients = paginator.page(page)
+        except PageNotAnInteger:
+            patients = paginator.page(1)
+        except EmptyPage:
+            patients = paginator.page(paginator.num_pages)
         context = {
             'patients': patients,
         }
@@ -83,6 +106,7 @@ def main_search(request):
 
     if request.method == 'GET':
         form = SearchForm()
+        messages.success(request, 'Zero records Found!')
 
         return render(request, 'search.html',{'form': form})
     else:
