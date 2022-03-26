@@ -61,6 +61,9 @@ def new_client(request):
             patient = Patient(first_name=first_name,second_name=second_name, surname=surname,gender=gender, dob=dob, county=county,
                             sub_county=sub_county, ward=ward, national_id=national_id,ccc_number=ccc_number, date_created=date_created, village=village)
             patient.save()
+
+            return redirect('/client/add/client/')
+
         return render(request, "new_client.html", {'form': form})
 
 @login_required(login_url='login')
@@ -181,3 +184,10 @@ def user_login(request):
             )
             user.save()
             return render(request, 'accounts/login.html')
+
+
+@login_required(login_url='login')
+def user_logout(request):
+    logout(request)
+    messages.success(request, 'logged in successfully')
+    return redirect('login')
