@@ -3,18 +3,18 @@
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
-            <div class="col-12 col-md-6 order-md-1 order-last">
+            <!-- <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Register New Client</h3>
                 <p class="text-subtitle text-muted">Facility Name: 454156</p>
-            </div>
-            <div class="col-12 col-md-6 order-md-2 order-first">
+            </div> -->
+            <!-- <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Input</li>
                     </ol>
                 </nav>
-            </div>
+            </div> -->
         </div>
     </div>
     <section class="section">
@@ -102,7 +102,7 @@
                        
                 </div>
                     
-                    <div class="col-md-4"> <input class="btn btn-primary" type="submit" value="Submit">
+                    <div class="col-md-4" style="align-content: center;"> <input class="btn btn-primary" type="submit" value="Submit">
                     </div>
                     </form>
                 </div>
@@ -116,9 +116,14 @@
 <script>
     $("#id_county").change(function () {
        var countyName = $(this).val();  // get the selected country ID from the HTML input
+       var url = "{% url 'sub_counties'%}";
+
         $.ajax({
             type: 'GET',
-            url: "{% url 'sub_counties' county_name='Nairobi' %}",
+            url: url,
+            data: {
+                'county_name': countyName,       // add the country id to the POST parameters
+            },
             success: function (response) {
                 response.data.map(dt => 
                 {
@@ -133,7 +138,10 @@
        var SubCountyName = $(this).val();  // get the selected country ID from the HTML input
         $.ajax({
             type: 'GET',
-            url: "{% url 'wards' sub_county_name='Kibra' %}",
+            url: "{% url 'wards' %}",
+            data: {
+                'sub_county_name': SubCountyName,       // add the country id to the POST parameters
+            },
             success: function (response) {
                 response.data.map(dt => 
                 {   
@@ -145,10 +153,13 @@
     });
 
     $("#id_ward").change(function () {
-       var SubCountyName = $(this).val();  // get the selected country ID from the HTML input
+       var ward = $(this).val();  // get the selected country ID from the HTML input
         $.ajax({
             type: 'GET',
-            url: "{% url 'facilities' ward_name='Lindi' %}",
+            url: "{% url 'facilities' %}",
+            data: {
+                'ward': ward,       // add the country id to the POST parameters
+            },
             success: function (response) {
                 response.data.map(dt => 
                 {   

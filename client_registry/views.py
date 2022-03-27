@@ -137,8 +137,9 @@ def main_search(request):
 
 
 @api_view(['GET'])
-def fetch_sub_counties(request, county_name):
+def fetch_sub_counties(request):
     if request.method == 'GET':
+       county_name = request.GET['county_name']
        sub_counties_details = Facility.objects.filter(county=county_name).values('sub_county').distinct()
        serializer = FacilitySerializer(sub_counties_details, many=True)
        sub_counties_array = []
@@ -153,8 +154,9 @@ def fetch_sub_counties(request, county_name):
        return Response(return_message, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-def fetch_wards(request, sub_county_name):
+def fetch_wards(request):
     if request.method == 'GET':
+       sub_county_name = request.GET['sub_county_name']
        sub_counties_details = Facility.objects.filter(sub_county=sub_county_name).values('ward').distinct()
        serializer = FacilitySerializer(sub_counties_details, many=True)
        wards_array = []
@@ -171,8 +173,9 @@ def fetch_wards(request, sub_county_name):
        return Response(return_message, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-def fetch_facility(request, ward_name):
+def fetch_facility(request):
     if request.method == 'GET':
+       ward_name = request.GET['ward']
        sub_counties_details = Facility.objects.filter(ward=ward_name).values('name').distinct()
        serializer = FacilitySerializer(sub_counties_details, many=True)
        facility_array = []
