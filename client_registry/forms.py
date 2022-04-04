@@ -29,7 +29,7 @@ class ClientForm(forms.Form):
                'placeholder': 'First Name', 'id':'first_name'}
     ))
     second_name = forms.CharField(max_length=100, widget=forms.TextInput(
-        attrs={'class':'form-control',
+        attrs={'class':'form-controlc',
                'placeholder': 'Enter Second Name', 'id':'second_name'}
     ))
     surname = forms.CharField(max_length=100, widget=forms.TextInput(

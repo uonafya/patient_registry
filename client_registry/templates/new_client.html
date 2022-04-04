@@ -145,7 +145,7 @@
             success: function (response) {
                 response.data.map(dt => 
                 {   
-                    $('#id_ward').append($('<option></option>').val(dt).html(dt));
+                    $('#id_ward').append($('<option>Select County</option>').val(dt).html(dt));
                 })
 
             }
